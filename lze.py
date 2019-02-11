@@ -3,10 +3,8 @@ import sys
 
 # read file to encode and return as a bitarray
 def read_file(name):
-    ba = bitarray()
     with open(name, 'rb') as f:
-        ba.fromfile(f)
-    return ba
+        return bytearray(f.read())
 
 # write encoded bitarray to file
 def write_file(ba, name="encoded.bin"):
@@ -19,59 +17,56 @@ def write_file(ba, name="encoded.bin"):
 # c - character following prefix input.
 def tuple(d, l, c):
     ba = bitarray()
-    de = bin(d)[2:].zfill(8)
-    le = bin(l)[2:].zfill(8)
-    #ce = bin(ord(c))[2:].zfill(8)
-    # c is already encoded (slice of the original bitarray)
-    ba += de + le
-    ba += c
-    # debug: print the tuple
-    # print(c)
-    print(d,l,c.to01())
+    de = (bin(d)[2:]).zfill(8)
+    le = (bin(l)[2:]).zfill(8)
+    ce = (bin(c)[2:]).zfill(8)
+    ba += de + le + ce
+    print("{},{},'{}'".format(d,l,chr(c)))
     return ba
+
+# def clamp(x, smallest, largest):
+#     return max(smallest, min())
 
 # lz77 encoder on 'f' using a sliding window of length 'W', and a lookahead buffer 'L'
 def encode(W, L, f):
-    #print(f)
     encoded = bitarray()
-    for i in range(len(f)):
-        substring = f[i:i+1]
-        window_index = i - W if i - W >= 0 else 0
-        look_ahead_index = i + L if i + L <= len(f) else len(f)
+    i = 0
+    while i < len(f):
+        #print("{}th iteration".format(i))
+        #print("i is {}".format(i))
+        prefix = f[i:i+1]
+        window_index = max(i-W, 0)
         window = f[window_index:i]
         length = 1
-        occurences = window.search(substring) # begins in window
-        rightmost_match = -1 #= occurences[-1] # keep track of the rightmost match
-        if len(occurences) > 0: # a match was found
-            # keep expanding the search to get the longest prefix beginning in the window
-            while len(occurences) > 0: # a match remains
-                print('expand')
+        dist = 0
+        print("i {} prefix {}".format(i, prefix))
+        if prefix is None: # end of file
+            break
+        rindex = window.rfind(prefix)
+        if rindex != -1: # if a match is found in the window
+            while prefix in f[rindex:rindex+length] and length < L and i + length < len(f):
                 length += 1
-                substring = f[i:i+length] # the substring we're now matching
-                rightmost_match = occurences[-1] # keep track of the rightmost match before searching again
-                occurences = window.search(substring)
-            # longest prefix starting in window was obtained - try extending the match into the lookahead
-            print("rmm", rightmost_match)
-            while substring in f[rightmost_match:rightmost_match+length+1]: # runs an extra time but idgaf
-                length += 1
-                if i + length > look_ahead_index:
-                    length -= 1 # undo
-                    break
-                substring = f[i:i+length]
+                prefix = f[i:i+length]
+                dist = i - rindex
             # we're done
-            encoded += tuple(rightmost_match, length, substring[-1])
+            #print("length", length)
+            encoded += tuple(dist, length, prefix[-1])
             i += length
+            #i = min(i + length, len(f))
+            #print("i {} len {}".format(i, len(f)))
+            #print("this")
         else: # a new prefix was found
-            print('new 1 len prefix')
-            encoded += tuple(0,0,substring)
+            encoded += tuple(0,0,prefix[-1])
+            i += 1
     return encoded
-        
+
 # if missing file name
 if len(sys.argv) < 2:
     print("usage: python lze.py [file_to_encode] (write_file)")
 
 filename = sys.argv[1]
-ba = encode(1, 1, read_file(filename))
+ba = encode(255, 255, read_file(filename))
+#print(len(ba)/8)
 print(ba)
 
 # save as specified file or default
