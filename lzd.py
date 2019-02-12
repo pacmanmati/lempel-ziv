@@ -38,8 +38,8 @@ def decode(d_bits, l_bits, f):
             # print(start_index)
             decoded += ref[start_index:start_index+8]
         print("tuple is ({},{},{})".format(d, l, c))
-        print(decoded.tostring())
-        print()
+        #print(decoded.tostring())
+        #print()
         decoded += c # add the ending character
     return decoded
 

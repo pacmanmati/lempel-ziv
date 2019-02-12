@@ -22,14 +22,18 @@ def tuple(d, l, c):
     ce = (bin(c)[2:]).zfill(8)
     ba += de + le + ce
     print("{},{},'{}'".format(d,l,chr(c)))
+    if d > 255 or l > 255:
+        print("oopsie")
     return ba
 
 # lz77 encoder on 'f' using a sliding window of length 'W', and a lookahead buffer 'L'
 def encode(W, L, f):
     encoded = bitarray()
     i = 0
+    count = 0
     while i < len(f):
-        #print("{}th iteration".format(i))
+        print("{}th iteration".format(count))
+        count += 1
         prefix = f[i:i+1]
         window_index = max(i-W, 0)
         window = f[window_index:i]
@@ -38,15 +42,18 @@ def encode(W, L, f):
         print("i {} prefix {}".format(i, prefix))
         if prefix is None: # end of file
             break
-        rindex = window.rfind(prefix)
-        rindex += window_index # new
+        rindex = window.rfind(prefix) #+ window_index + 1
         if rindex != -1: # if a match is found in the window
+            rindex += window_index
             while prefix in f[rindex:rindex+length] and length < L and i + length < len(f):
                 length += 1
                 prefix = f[i:i+length]
-                dist = i - rindex
+                dist = i - rindex# - window_index - 1
+            else: # ¯\_(ツ)_/¯
+                length += 1
+            length -= 1
             # we're done
-            dist = i - rindex # new
+            dist = i - rindex
             print("rindex {}".format(rindex))
             encoded += tuple(dist, length, prefix[-1])
             i += length
@@ -63,7 +70,7 @@ if len(sys.argv) < 2:
 
 filename = sys.argv[1]
 ba = encode(255, 255, read_file(filename))
-print(ba)
+#print(ba)
 
 # save as specified file or default
 if len(sys.argv) > 2:
