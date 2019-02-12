@@ -16,9 +16,11 @@ def decode(d_bits, l_bits, f):
     decoded = bitarray()
     instructions = []
     i = 0
+    count = 0
     print(len(f))
     while i < len(f):
-        # print(i)
+        print("{}th iteration below".format(count))
+        count += 1
         # get d, l, c from bitarray
         d = int(f[i:i+d_bits].to01(), 2)
         i += d_bits

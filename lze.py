@@ -24,16 +24,12 @@ def tuple(d, l, c):
     print("{},{},'{}'".format(d,l,chr(c)))
     return ba
 
-# def clamp(x, smallest, largest):
-#     return max(smallest, min())
-
 # lz77 encoder on 'f' using a sliding window of length 'W', and a lookahead buffer 'L'
 def encode(W, L, f):
     encoded = bitarray()
     i = 0
     while i < len(f):
         #print("{}th iteration".format(i))
-        #print("i is {}".format(i))
         prefix = f[i:i+1]
         window_index = max(i-W, 0)
         window = f[window_index:i]
@@ -43,18 +39,19 @@ def encode(W, L, f):
         if prefix is None: # end of file
             break
         rindex = window.rfind(prefix)
+        rindex += window_index # new
         if rindex != -1: # if a match is found in the window
             while prefix in f[rindex:rindex+length] and length < L and i + length < len(f):
                 length += 1
                 prefix = f[i:i+length]
                 dist = i - rindex
             # we're done
-            #print("length", length)
+            dist = i - rindex # new
+            print("rindex {}".format(rindex))
             encoded += tuple(dist, length, prefix[-1])
             i += length
             #i = min(i + length, len(f))
             #print("i {} len {}".format(i, len(f)))
-            #print("this")
         else: # a new prefix was found
             encoded += tuple(0,0,prefix[-1])
             i += 1
@@ -66,7 +63,6 @@ if len(sys.argv) < 2:
 
 filename = sys.argv[1]
 ba = encode(255, 255, read_file(filename))
-#print(len(ba)/8)
 print(ba)
 
 # save as specified file or default
