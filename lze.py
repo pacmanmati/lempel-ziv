@@ -1,5 +1,6 @@
 from bitarray import bitarray
 import sys
+import math
 import time
 
 # read file to encode and return as a bitarray
@@ -18,8 +19,8 @@ def write_file(ba, name="encoded.bin"):
 # c - character following prefix input.
 def tuple(d, l, c):
     ba = bitarray()
-    de = (bin(d)[2:]).zfill(8)
-    le = (bin(l)[2:]).zfill(8)
+    de = (bin(d)[2:]).zfill(D_BITS)
+    le = (bin(l)[2:]).zfill(L_BITS)
     ce = (bin(c)[2:]).zfill(8)
     ba += de + le + ce
     #print("{},{},'{}'".format(d,l,chr(c)))
@@ -77,6 +78,9 @@ def encode(W, L, f):
             # we're done
             dist = i - rindex
             # print("rindex {}".format(rindex))
+            # if length is 0:
+            #     encoded += tuple(0, 0, prefix[-1])
+            # else:
             encoded += tuple(dist, length, prefix[-1])
             i += length + 1
             #i = min(i + length, len(f))
@@ -91,12 +95,15 @@ if len(sys.argv) < 5:
     print("usage: python lze.py [file_to_encode] [write_file] [W] [L]")
     sys.exit()
 
-# W = int(sys.argv[3])
-# L = int(sys.argv[4])
+W = int(sys.argv[3])
+L = int(sys.argv[4])
+
+D_BITS = math.floor(math.log(W, 2) + 1)
+L_BITS = math.floor(math.log(L, 2) + 1)
 
 start = time.time()
 filename = sys.argv[1]
-ba = encode(255, 255, read_file(filename))
+ba = encode(W, L, read_file(filename))
 #print(ba)
 print("time taken: {}".format(time.time() - start))
 
