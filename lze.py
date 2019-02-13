@@ -22,7 +22,7 @@ def tuple(d, l, c):
     le = (bin(l)[2:]).zfill(8)
     ce = (bin(c)[2:]).zfill(8)
     ba += de + le + ce
-    print("{},{},'{}'".format(d,l,chr(c)))
+    #print("{},{},'{}'".format(d,l,chr(c)))
     # if d > 255 or l > 255:
     #     print("oopsie")
     return ba
