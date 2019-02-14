@@ -1,0 +1,108 @@
+waves@arch ~/Downloads % ./ent small1.txt 
+Entropy = 4.648634 bits per byte.
+
+Optimum compression would reduce the size
+of this 75125 byte file by 41 percent.
+
+Chi square distribution for 75125 samples is 1057257.86, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 89.1762 (127.5 = random).
+Monte Carlo value for Pi is 4.000000000 (error 27.32 percent).
+Serial correlation coefficient is 0.136493 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent small2.txt 
+Entropy = 4.641952 bits per byte.
+
+Optimum compression would reduce the size
+of this 39700 byte file by 41 percent.
+
+Chi square distribution for 39700 samples is 571887.77, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 89.5379 (127.5 = random).
+Monte Carlo value for Pi is 4.000000000 (error 27.32 percent).
+Serial correlation coefficient is 0.101269 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent small3.txt 
+Entropy = 4.631926 bits per byte.
+
+Optimum compression would reduce the size
+of this 51185 byte file by 42 percent.
+
+Chi square distribution for 51185 samples is 765965.92, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 90.7719 (127.5 = random).
+Monte Carlo value for Pi is 3.998593200 (error 27.28 percent).
+Serial correlation coefficient is 0.010039 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent medium1.txt 
+Entropy = 4.575469 bits per byte.
+
+Optimum compression would reduce the size
+of this 724726 byte file by 42 percent.
+
+Chi square distribution for 724726 samples is 10797417.96, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 90.7655 (127.5 = random).
+Monte Carlo value for Pi is 3.999138980 (error 27.30 percent).
+Serial correlation coefficient is 0.022491 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent medium2.txt 
+Entropy = 4.493676 bits per byte.
+
+Optimum compression would reduce the size
+of this 450783 byte file by 43 percent.
+
+Chi square distribution for 450783 samples is 7032607.83, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 90.4825 (127.5 = random).
+Monte Carlo value for Pi is 3.999254625 (error 27.30 percent).
+Serial correlation coefficient is 0.045658 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent medium3.txt 
+Entropy = 4.553939 bits per byte.
+
+Optimum compression would reduce the size
+of this 234041 byte file by 43 percent.
+
+Chi square distribution for 234041 samples is 3542051.16, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 89.4910 (127.5 = random).
+Monte Carlo value for Pi is 3.999897452 (error 27.32 percent).
+Serial correlation coefficient is 0.027594 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent large1.txt 
+Entropy = 4.598597 bits per byte.
+
+Optimum compression would reduce the size
+of this 1276201 byte file by 42 percent.
+
+Chi square distribution for 1276201 samples is 18705430.70, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 91.2190 (127.5 = random).
+Monte Carlo value for Pi is 3.997423601 (error 27.24 percent).
+Serial correlation coefficient is 0.054436 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent large2.txt 
+Entropy = 4.556310 bits per byte.
+
+Optimum compression would reduce the size
+of this 1201891 byte file by 43 percent.
+
+Chi square distribution for 1201891 samples is 19992570.78, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 85.6457 (127.5 = random).
+Monte Carlo value for Pi is 4.000000000 (error 27.32 percent).
+Serial correlation coefficient is 0.232845 (totally uncorrelated = 0.0).
+waves@arch ~/Downloads % ./ent large3.txt 
+Entropy = 4.601714 bits per byte.
+
+Optimum compression would reduce the size
+of this 5458199 byte file by 42 percent.
+
+Chi square distribution for 5458199 samples is 108186209.59, and randomly
+would exceed this value less than 0.01 percent of the times.
+
+Arithmetic mean value of data bytes is 81.9698 (127.5 = random).
+Monte Carlo value for Pi is 4.000000000 (error 27.32 percent).
+Serial correlation coefficient is 0.237165 (totally uncorrelated = 0.0).

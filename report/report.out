@@ -1,0 +1,8 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Encoder running time \(compression\)}{}% 2
+\BOOKMARK [1][-]{section.3}{Decoder running time \(decompression\)}{}% 3
+\BOOKMARK [1][-]{section.4}{Compression ratio}{}% 4
+\BOOKMARK [1][-]{section.5}{Comparison to other algorithms}{}% 5
+\BOOKMARK [2][-]{subsection.5.1}{DEFLATE \(gzip\)}{section.5}% 6
+\BOOKMARK [2][-]{subsection.5.2}{Burrows-Wheeler Transform + Huffman \(bzip2\)}{section.5}% 7
+\BOOKMARK [2][-]{subsection.5.3}{LZ77}{section.5}% 8
