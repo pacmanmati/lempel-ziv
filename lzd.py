@@ -20,10 +20,10 @@ def decode(d_bits, l_bits, cutoff, f):
     i = 0
     count = 0
     #print(len(f))
-    while i < len(f) - cutoff:
+    while i < len(f):
         #print("--------------------")
-        #print("{}th iteration below".format(count))
-        #count += 1
+        print("{}th iteration below".format(count))
+        count += 1
         # get d, l, c from bitarray
         
         d = int(f[i:i+d_bits].to01(), 2)
@@ -38,9 +38,12 @@ def decode(d_bits, l_bits, cutoff, f):
         #     ref = decoded[-d*8:]
             # print(len(ref)/8)
             #print(ref.tostring())
+        print("tuple is ({},{},{})".format(d, l, chr(int(c.to01(), 2))))
+        print(len(decoded))
         for j in range(len(decoded)-d*8, len(decoded)-(d*8)+l*8, 1): # go up in 8s
+            print("j is",j)
             decoded.append(decoded[j])
-        #print("tuple is ({},{},{})".format(d, l, chr(int(c.to01(), 2))))
+        
         #print(decoded.tostring())
         #print()
         decoded += c # add the ending character
