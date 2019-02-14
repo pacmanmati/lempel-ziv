@@ -107,10 +107,14 @@ TIME_DATA_DECODER = []
 RATIO_DATA = []
 
 f = read_file_bytes("data/original_files/{}".format(filename))
-
-for W in range(1000, 2000, 1000):
+count = 0
+for i in range(3, 20, 2):
+    W = 2**i - 1
     D_BITS = math.floor(math.log(W, 2) + 1)
-    for L in range(1000, 2000, 1000):
+    for j in range(3, 12, 2):
+        L = 2**j - 1
+        print("iteration {}, W {}, L {}".format(count, W, L))
+        count += 1
         L_BITS = math.floor(math.log(L, 2) + 1)
         cutoff = 8 - ((D_BITS + L_BITS) % 8)
         
