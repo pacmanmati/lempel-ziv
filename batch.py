@@ -70,10 +70,13 @@ def encode(W, L, f):
 # decoder functions
 
 def decode(dd_bits, ll_bits, cutoff, f):
+    global read_tuples
+    global overwraps
     decoded = bitarray()
     instructions = []
     i = 0
     count = 0
+    overwraps = 0
     #print(len(f))
     while i < len(f) - cutoff:
         #print("--------------------")
@@ -94,7 +97,10 @@ def decode(dd_bits, ll_bits, cutoff, f):
             # print(j)
             decoded.append(decoded[j])
         decoded += c # add the ending character
+        if (l > d):
+            overwraps += 1
         #print(decoded)
+    read_tuples = count
     return decoded
 
 # batch run
@@ -114,13 +120,15 @@ def run(filename):
     TIME_DATA_ENCODER = []
     TIME_DATA_DECODER = []
     RATIO_DATA = []
+    TUPLES_READ = []
+    OVERWRAPS_READ = []
 
     f = read_file_bytes("data/original_files/{}".format(filename))
     count = 0
-    for i in range(3, 20, 2):
+    for i in range(7, 12, 1):
         W = 2**i - 1
         D_BITS = math.floor(math.log(W, 2) + 1)
-        for j in range(4, 12, 2):
+        for j in range(3, 16, 1):
             L = 2**j - 1
             L_BITS = math.floor(math.log(L, 2) + 1)
             print("iteration {}, W {}, L {}".format(count, W, L))
@@ -135,11 +143,11 @@ def run(filename):
             encoded_bitarray = encode(W, L, f)
             TIME_DATA_ENCODER.append(time.time() - start)
             
-            # print(encoded_bitarray.fill())
-            
             start = time.time()
             #os.system("python lzd.py data/encoded_storage/encoded.bin data/decoded_storage/{} {} {}".format(filename, W, L))
             decoded_bitarray = decode(D_BITS, L_BITS, cutoff, encoded_bitarray)
+            TUPLES_READ.append(read_tuples)
+            OVERWRAPS_READ.append(overwraps)
             TIME_DATA_DECODER.append(time.time() - start)
 
             #RATIO_DATA.append(len(f)/math.ceil(len(encoded)/8))
@@ -153,14 +161,18 @@ def run(filename):
         ret_string += "\n"
         return ret_string
 
-    with open("data/output_files/{}".format(filename), "w") as f:
+    with open("data/output_files/{}L".format(filename), "w") as f:
         f.write(list_to_csv(W_DATA))
         f.write(list_to_csv(L_DATA))
+        f.write(list_to_csv(TUPLES_READ))
+        f.write(list_to_csv(OVERWRAPS_READ))
         f.write(list_to_csv(TIME_DATA_ENCODER))
         f.write(list_to_csv(TIME_DATA_DECODER))
         f.write(list_to_csv(RATIO_DATA))
 
-files = ["small1.txt", "small2.txt", "small3.txt", "medium1.txt", "medium2.txt", "medium3.txt", "large1.txt", "large2.txt", "large3.txt"]
+#files = ["small1.txt", "small2.txt", "small3.txt", "medium1.txt", "medium2.txt", "medium3.txt", "large1.txt", "large2.txt", "large3.txt"]
+#files = ["small1.txt", "small2.txt", "small3.txt", "medium1.txt", "medium2.txt", "medium3.txt"]
+files = ["small1.txt", "small2.txt"]
 for f in files:
     print("file: {}".format(f))
     run(f)

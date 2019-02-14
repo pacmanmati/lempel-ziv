@@ -27,10 +27,10 @@ def tuple(d, l, c):
     # print("{}, {}".format(d, l))
     # if len(ba) > D_BITS + L_BITS + 8:
     #     print("fuck")
-    if d > 31:
-        print("d")
-    if l > 7:
-        print("f", l)
+    # if d > 31:
+    #     print("d")
+    # if l > 7:
+    #     print("f", l)
     return ba
 
 # lz77 encoder on 'f' using a sliding window of length 'W', and a lookahead buffer 'L'
@@ -40,7 +40,7 @@ def encode(W, L, f):
     count = 0
     while i < len(f):
         # print("--------------")
-        print("{}th iteration".format(count))
+        #print("{}th iteration".format(count))
         count += 1
         prefix = f[i:i+1]
         window_index = max(i-W, 0)
@@ -57,7 +57,7 @@ def encode(W, L, f):
             # print("prefix", prefix)
             save = rindex # will contain the last known rindex
             while rindex != -1 and length < L and i + length < len(f) - 1: # find the longest match in the window
-                print("loop 1")                
+                #print("loop 1")                
                 save = rindex
                 length += 1
                 prefix = f[i:i+length+1]
@@ -72,7 +72,7 @@ def encode(W, L, f):
             # print("found rightmost in window")
             # print("slice is",f[rindex:rindex+length+1])
             while prefix in f[rindex:rindex+length+1] and length < L and i + length < len(f) - 1:
-                print("loop 2")
+                #print("loop 2")
                 length += 1
                 prefix = f[i:i+length+1]
                 # print("length:", length)
